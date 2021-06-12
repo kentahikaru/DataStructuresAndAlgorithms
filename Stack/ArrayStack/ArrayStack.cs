@@ -2,14 +2,14 @@ using System;
 
 namespace ArrayStack
 {
-    public class ArrayStack<T> where T : class
+    public class ArrayStack<T>
     {
         private T[] stack ;
         private int stackSize;
         private int index;
         public ArrayStack(int size)
         {
-            stack = T[size];
+            stack = new T[size];
             stackSize = size;
         }
 
@@ -41,7 +41,7 @@ namespace ArrayStack
         {
             for(int i = 0; i < stackSize - 1; i++)
             {
-                stack[i] = null;
+                stack[i] = default;
             }
             index = 0;
         }
