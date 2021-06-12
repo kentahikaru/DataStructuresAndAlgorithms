@@ -4,20 +4,21 @@ namespace ArrayStack
 {
     public class ArrayStack<T>
     {
-        private T[] stack ;
+        private T[] stack;
         private int stackSize;
         private int index;
         public ArrayStack(int size)
         {
             stack = new T[size];
             stackSize = size;
+            index = -1;
         }
 
         public void Push(T element)
         {
-            if(index < (stackSize - 1))
+            if(index <= (stackSize - 1))
             {
-                stack[index++] = element;
+                stack[++index] = element;
             }
             else
             {
@@ -27,7 +28,7 @@ namespace ArrayStack
 
         public T Pop()
         {
-            if(index > 0)
+            if(index > -1)
             {
                 return stack[index--];
             }
