@@ -1,6 +1,8 @@
 ﻿using System;
+using BenchmarkDotNet.Reports;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Running;
+using BenchmarkDotNet.Exporters;
 
 namespace ArrayStackBenchmark
 {
@@ -8,7 +10,7 @@ namespace ArrayStackBenchmark
     {
         static void Main(string[] args)
         {
-            var summary = BenchmarkRunner.Run(typeof(Program).Assembly);
+            var summary = BenchmarkRunner.Run(typeof(ArrayStackBenchmark).Assembly, null, args);
         }
     }
 }

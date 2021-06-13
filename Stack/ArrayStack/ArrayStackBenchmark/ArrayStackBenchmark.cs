@@ -4,6 +4,12 @@ using BenchmarkDotNet.Running;
 
 namespace ArrayStackBenchmark
 {
+    [AsciiDocExporter]
+    [CsvExporter]
+    [CsvMeasurementsExporter]
+    [HtmlExporter]
+    [PlainExporter]
+    [JsonExporterAttribute.Brief]
     public class ArrayStackBenchmark
     {
         [Benchmark]
