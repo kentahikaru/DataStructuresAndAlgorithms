@@ -19,6 +19,9 @@ param (
 [string]$where,
 [string]$what
 )
+$whatproj = $what + '/' + $what + '.csproj'
+$whattestsproj = $whattests + '/' + $whattests + '.csproj'
+$whatbmproj = $whatbm + '/' + $whatbm + '.csproj'
 
 cd $where
 mkdir $what
@@ -33,17 +36,17 @@ $whattests = $what + 'Tests'
 mkdir $whattests
 cd $whattests
 dotnet new mstest
+dotnet add reference ../$whatproj
 cd ..
 
 $whatbm = $what + 'Benchmark'
 mkdir $whatbm
 cd $whatbm
 dotnet new console
+dotnet add reference ../$whatproj
 cd ..
 
-$whatproj = $what + '/' + $what + '.csproj'
-$whattestsproj = $whattests + '/' + $whattests + '.csproj'
-$whatbmproj = $whatbm + '/' + $whatbm + '.csproj'
+
 
 dotnet new sln
 dotnet sln add $whatproj $whattestsproj $whatbmproj
