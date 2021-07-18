@@ -20,8 +20,7 @@ param (
 [string]$what
 )
 $whatproj = $what + '/' + $what + '.csproj'
-$whattestsproj = $whattests + '/' + $whattests + '.csproj'
-$whatbmproj = $whatbm + '/' + $whatbm + '.csproj'
+
 
 cd $where
 mkdir $what
@@ -46,7 +45,8 @@ dotnet new console
 dotnet add reference ../$whatproj
 cd ..
 
-
+$whattestsproj = $whattests + '/' + $whattests + '.csproj'
+$whatbmproj = $whatbm + '/' + $whatbm + '.csproj'
 
 dotnet new sln
 dotnet sln add $whatproj $whattestsproj $whatbmproj
