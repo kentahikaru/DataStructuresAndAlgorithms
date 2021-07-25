@@ -14,49 +14,61 @@ namespace Structures.BinarySearchTree.BinarySearchTree
             size = 0;
         }
 
-        public bool Add(int key, string value)
+        public void Add(int key, string value)
         {
-            if(key == null || string.IsNullOrEmpty(value))
-                return false;
+            if (key == null || string.IsNullOrEmpty(value))
+                throw new ArgumentException("key or value is null");
+
+            if (root == null)
+            {
+                root = new Node(key, value);
+                return;
+            }
 
             Node newNode = new Node(key, value);
-            return AddNode(root, newNode);
+            AddNode(root, newNode);
         }
 
-        private bool AddNode(Node currentNode, Node newNode)
+        private void AddNode(Node currentNode, Node newNode)
         {
-            if(currentNode == null)
+            if (newNode.key < currentNode.key)
             {
-                currentNode = newNode;
-                size++;
-                return true;
+                if (currentNode.left == null)
+                    AddNodeToLeft(currentNode, newNode);
+                else
+                    AddNode(currentNode.left, newNode);
+            }
+            else if (newNode.key > currentNode.key)
+            {
+                if (currentNode.right == null)
+                    AddNodeToRight(currentNode, newNode);
+                else
+                    AddNode(currentNode.right, newNode);
             }
             else
             {
-                {
-                    if(newNode.key < currentNode.key)
-                    {
-                        return AddNode(currentNode.left, newNode);
-                    }
-                    else if(newNode.key > currentNode.key)
-                    {
-                        return AddNode(currentNode.right, newNode);
-                    }
-                    else
-                    {
-                        newNode = null;
-                        return false;
-                    }
-                }
+                newNode = null;
             }
         }
 
-        public bool Remove(int key)
+        private void AddNodeToLeft(Node currentNode, Node newNode)
         {
-            return RemoveNode(root, key);
+            currentNode.left = newNode;
+            size++;
         }
 
-        private bool RemoveNode(Node node, int key)
+        private void AddNodeToRight(Node currentNode, Node newNode)
+        {
+            currentNode.right= newNode;
+            size++;
+        }
+
+        public void Remove(int key)
+        {
+            RemoveNode(root, key);
+        }
+
+        private void RemoveNode(Node node, int key)
         {
             if(node != null)
             {
@@ -64,16 +76,15 @@ namespace Structures.BinarySearchTree.BinarySearchTree
                 {
                     RemoveRootNode(node);
                     size--;
-                    return true;
                 }
                 else if(key < node.key)
-                    return RemoveNode(node.left, key);
+                    RemoveNode(node.left, key);
                 else
-                    return RemoveNode(node.right, key);
+                    RemoveNode(node.right, key);
             }
             else
             {
-                return false;
+                throw new ArgumentException("node with key '" + key.ToString() + "' doesn't exist");
             }
         }
 
@@ -130,32 +141,30 @@ namespace Structures.BinarySearchTree.BinarySearchTree
             }
         }
 
-        public bool Get(int key, string value)
+        public Node Get(int key)
         {
-            return GetNode(root, key, value);
+            return GetNode(root, key);
         }
 
-        private bool GetNode(Node node, int key, string value)
+        private Node GetNode(Node node, int key)
         {
             if(node == null)
             {
-                value = string.Empty;
-                return false;
+                throw new Exception("Didn't find node with key: " + key.ToString());
             }
             else
             {
                 if(key == node.key)
                 {
-                    value = node.value;
-                    return true;
+                    return node;
                 }
                 else if(key < node.key)
                 {
-                    return GetNode(node.left, key, value);
+                    return GetNode(node.left, key);
                 }
                 else
                 {
-                    return GetNode(node.right, key, value);
+                    return GetNode(node.right, key);
                 }
             }
         }
