@@ -34,7 +34,7 @@ cd ..
 $whattests = $what + 'Tests'
 mkdir $whattests
 cd $whattests
-dotnet new mstest
+dotnet new nunit
 dotnet add reference ../$whatproj
 cd ..
 
