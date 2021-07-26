@@ -141,6 +141,11 @@ namespace Structures.BinarySearchTree.BinarySearchTree
             }
         }
 
+        public Node GetRoot()
+        {
+            return root;
+        }
+
         public Node Get(int key)
         {
             return GetNode(root, key);

@@ -19,6 +19,9 @@ namespace BinarySearchTreeBenchmark
 
             bst.DisplayAll();
 
+            Console.WriteLine("Size: " + bst.GetSize());
+            Console.WriteLine("Depth: " + bst.GetDepth());
+
         }
     }
 }
