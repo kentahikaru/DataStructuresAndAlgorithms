@@ -96,16 +96,24 @@ namespace HashTable
             for(int i = 0; i < this.tableSize; i++)
             {
                 Node node = table[i];
-                
-                while(node != null)
+
+                if (node != null && node.next != null)
                 {
-                    var tmp = node.next;
-                    node = null;
-                    node.next = null;
-                    node = tmp.next;
+                    do
+                    {
+                        while (node.next.next != null)
+                            node = node.next;
+
+                        node.next = null;
+                        node = table[i];
+                    } while (table[i].next != null);
                 }
-             
-                table[i] = null;
+
+                if (table[i] != null)
+                {
+                    table[i].next = null;
+                    table[i] = null;
+                }
             }
             
             this.size = 0;
